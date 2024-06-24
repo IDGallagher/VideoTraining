@@ -1,0 +1,3 @@
+[submodule "video2dataset"]
+	path = video2dataset
+	url = https://github.com/iejMac/video2dataset.git
