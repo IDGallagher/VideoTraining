@@ -1,3 +1,6 @@
 [submodule "video2dataset"]
 	path = video2dataset
 	url = https://github.com/iejMac/video2dataset.git
+[submodule "clip-video-encode"]
+	path = clip-video-encode
+	url = git@github.com:IDGallagher/clip-video-encode.git
