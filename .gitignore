@@ -164,3 +164,4 @@ cython_debug/
 datasets/webvid10m
 wandb
 data
+outputs/
