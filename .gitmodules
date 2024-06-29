@@ -4,3 +4,6 @@
 [submodule "AnimateDiff"]
 	path = AnimateDiff
 	url = C:\\dev\\VideoTraining\\AnimateDiff
+[submodule "webdataset"]
+	path = webdataset
+	url = git@github.com:IDGallagher/webdataset.git
