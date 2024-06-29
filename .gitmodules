@@ -6,4 +6,4 @@
 	url = https://github.com/IDGallagher/AnimateDiff.git
 [submodule "webdataset"]
 	path = webdataset
-	url = git@github.com:IDGallagher/webdataset.git
+	url = https://github.com:IDGallagher/webdataset.git
