@@ -3,7 +3,7 @@
 	url = https://github.com/iejMac/video2dataset.git
 [submodule "AnimateDiff"]
 	path = AnimateDiff
-	url = C:\\dev\\VideoTraining\\AnimateDiff
+	url = https://github.com/IDGallagher/AnimateDiff.git
 [submodule "webdataset"]
 	path = webdataset
 	url = git@github.com:IDGallagher/webdataset.git
