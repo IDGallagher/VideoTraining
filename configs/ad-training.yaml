@@ -28,9 +28,9 @@ noise_scheduler_kwargs:
   clip_sample:         false
 
 train_data:
-  csv_path:        "./AnimateDiff/data/test.csv"
-  video_folder:    "./AnimateDiff/data/videos"
-  sample_size:     256
+  shards:          "s3://webvid10m-test/test-shards.json"
+  # url_pattern:     "s3://webvid10m-test/webvid10m-test/{00000..00000}.tar"   # If we use wds rather than wids then we'll need url_pattern
+  sample_size:     512
   sample_stride:   4
   sample_n_frames: 16
 

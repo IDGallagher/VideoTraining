@@ -165,3 +165,4 @@ datasets/webvid10m
 wandb
 data
 outputs/
+tmp/

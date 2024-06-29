@@ -1,0 +1,11 @@
+{
+  "__kind__": "wids-shard-index-v1",
+  "name": "train",
+  "wids_version": 1,
+  "shardlist": [
+      {
+          "url": "s3://webvid10m-test/webvid10m-test/00000.tar",
+          "nsamples": 20
+      }
+  ]
+}
