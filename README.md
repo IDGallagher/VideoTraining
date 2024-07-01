@@ -27,6 +27,11 @@ To set up WANDB:
 pip install wandb; source ~/secrets.dat; wandb login $WANDB_API_KEY;
 ```
 
+```
+apt-get update
+apt-get install ffmpeg
+```
+
 ## Downloading datasets
 
 Install our version of video2dataset:
