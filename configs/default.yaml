@@ -1,8 +1,4 @@
 subsampling:
-    # ResolutionSubsampler:
-    #     args:
-    #         video_size: 512
-    #         resize_mode: "scale,crop,pad"
     FrameSubsampler:
         args:
            frame_rate: 24
