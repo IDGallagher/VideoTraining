@@ -31,6 +31,6 @@ To set up WANDB:
 
 Install our version of video2dataset:
 ```
-pip install -e video2dataset
+!cd video2dataset; python -m venv .venv; . .venv/bin/activate; pip install -r requirements.txt; pip install -e .; mkdir ../tmp;
 ```
 
