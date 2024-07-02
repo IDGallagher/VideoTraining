@@ -14,6 +14,7 @@ Install ffmpeg:
 apt-get update; apt-get install ffmpeg
 ```
 
+Copy aws.zip to ~ and unzip
 ```
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
@@ -68,15 +69,11 @@ conda activate animatediff
 ```
 
 ```
-cd ~; mkdir .config
-```
-Copy aws.zip to ~ then and copy fsspec.zip to ~/.config and unzip both
-```
 cd models; rm -Rf StableDiffusion; cd ..
 git lfs install
 git clone https://huggingface.co/runwayml/stable-diffusion-v1-5 models/StableDiffusion/
 ```
 
 ```
-python ./AnimateDiff/train.py --config "./configs/ad-training.yaml"
+python ./AnimateDiff/train.py --config "./configs/ad-training.yaml" --wandb
 ```
