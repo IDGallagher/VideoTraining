@@ -1,7 +1,4 @@
-subsampling:
-    FrameSubsampler:
-        args:
-           frame_rate: 24
+subsampling: {}
 
 reading:
     yt_args:
@@ -17,11 +14,11 @@ reading:
 
 storage:
     number_sample_per_shard: 1000
-    oom_shard_count: 5
+    oom_shard_count: 8
     captions_are_subtitles: False
 
 distribution:
-    processes_count: 16
-    thread_count: 16
+    processes_count: 30
+    thread_count: 30
     subjob_size: 1000
     distributor: "multiprocessing"
