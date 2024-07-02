@@ -60,7 +60,7 @@ export PATH=~/miniconda/bin:$PATH
 
 Create environment from AnimateDiff/environment.yaml
 ```
-cd AnimateDiff; conda env create -f environment.yml
+cd AnimateDiff; conda env create -f environment.yaml
 ```
 
 ```
