@@ -166,3 +166,5 @@ wandb
 data
 outputs/
 tmp/
+samples/
+*.ckpt
