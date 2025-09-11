@@ -1,0 +1,11 @@
+diffusers==0.29.2
+transformers==4.30.2
+braceexpand
+numpy
+pyyaml
+dataclasses
+einops
+omegaconf
+imageio
+accelerate
+xformers

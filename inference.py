@@ -1,7 +1,10 @@
+import os
+os.environ["XFORMERS_FORCE_DISABLE_TRITON"] = "1"
+
 import argparse
 import datetime
 import inspect
-import os
+
 from omegaconf import OmegaConf
 
 import torch
@@ -11,14 +14,14 @@ import diffusers
 from diffusers import AutoencoderKL, DDIMScheduler
 
 from tqdm.auto import tqdm
-from transformers import CLIPTextModel, CLIPTokenizer
+from transformers import CLIPTextModel, CLIPTokenizer, CLIPImageProcessor
 
-
+from animatediff.models.clip import CLIPSkipTextModel
 from animatediff.models.unet import UNet3DConditionModel
 from animatediff.models.sparse_controlnet import SparseControlNetModel
-from animatediff.pipelines.pipeline_animation import AnimationPipeline
+from animatediff.pipelines import AnimationPipeline
 from animatediff.utils.util import save_videos_grid
-from animatediff.utils.util import load_weights
+from animatediff.utils.util_old import load_weights
 from diffusers.utils.import_utils import is_xformers_available
 
 from einops import rearrange, repeat
@@ -43,8 +46,9 @@ def main(args):
 
     # create validation pipeline
     tokenizer    = CLIPTokenizer.from_pretrained(args.pretrained_model_path, subfolder="tokenizer")
-    text_encoder = CLIPTextModel.from_pretrained(args.pretrained_model_path, subfolder="text_encoder").cuda()
+    text_encoder = CLIPSkipTextModel.from_pretrained(args.pretrained_model_path, subfolder="text_encoder").cuda()
     vae          = AutoencoderKL.from_pretrained(args.pretrained_model_path, subfolder="vae").cuda()
+    feature_extractor = CLIPImageProcessor.from_pretrained(args.pretrained_model_path, subfolder="feature_extractor")
 
     sample_idx = 0
     for model_idx, model_config in enumerate(config):
@@ -53,7 +57,8 @@ def main(args):
         model_config.L = model_config.get("L", args.L)
 
         inference_config = OmegaConf.load(model_config.get("inference_config", args.inference_config))
-        unet = UNet3DConditionModel.from_pretrained_2d(args.pretrained_model_path, subfolder="unet", unet_additional_kwargs=OmegaConf.to_container(inference_config.unet_additional_kwargs)).cuda()
+        motion_module_path         = model_config.get("motion_module", "")
+        unet: UNet3DConditionModel = UNet3DConditionModel.from_pretrained_2d(args.pretrained_model_path, motion_module_path=motion_module_path, subfolder="unet", unet_additional_kwargs=OmegaConf.to_container(inference_config.unet_additional_kwargs)).cuda()
 
         # load controlnet model
         controlnet = controlnet_images = None
@@ -114,13 +119,14 @@ def main(args):
 
         # set xformers
         if is_xformers_available() and (not args.without_xformers):
-            unet.enable_xformers_memory_efficient_attention()
+            # unet.enable_xformers_memory_efficient_attention()
             if controlnet is not None: controlnet.enable_xformers_memory_efficient_attention()
 
         pipeline = AnimationPipeline(
             vae=vae, text_encoder=text_encoder, tokenizer=tokenizer, unet=unet,
             controlnet=controlnet,
             scheduler=DDIMScheduler(**OmegaConf.to_container(inference_config.noise_scheduler_kwargs)),
+            feature_extractor=feature_extractor,
         ).to("cuda")
 
         pipeline = load_weights(
